@@ -30,6 +30,8 @@ def Upload_CSV_to_GCS(bucket_name,source_file_path,Dest_file_path):
 
         csv_data = blob.download_as_bytes()
         df = pd.read_csv(io.BytesIO(csv_data))
+        df=df.rename(columns={'item_ID':'ITEM_ID'})
+        print(df)
         return df
         print("The File Uploaded Sucessfully")
         log.info("File Upload Sucess")
@@ -89,4 +91,4 @@ table_name="Sample"
 #Calling the Function
 df=Upload_CSV_to_GCS(bucket_name,source_file_path,Dest_file_path)
 
-upload_GCS_to_BQ(df,"Test","Sample")
+#upload_GCS_to_BQ(df,"Test","Sample")
